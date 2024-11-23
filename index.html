@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOVAPad - Dokumentacja Techniczna</title>
+    <style>
+        :root {
+            --primary-color: #2B3FFB;
+            --secondary-color: #404040;
+            --accent-color: #cd7f32;
+            --background-color: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            line-height: 1.6;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .technical-drawing {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .drawing-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .specifications {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        .specs-table td, .specs-table th {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .specs-table th {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .layer-info {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+
+        .layer-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .tab-container {
+            margin: 20px 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .tab-button:hover {
+            background: var(--primary-color);
+        }
+
+        .tab-button.active {
+            background: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        svg {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+        }
+
+        .dimension-line {
+            stroke: var(--primary-color);
+            stroke-width: 1;
+            marker-end: url(#arrowhead);
+        }
+
+        .dimension-text {
+            fill: var(--primary-color);
+            font-size: 12px;
+            text-anchor: middle;
+        }
+
+        .annotation {
+            font-size: 12px;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .component-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .component-list li {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MOVAPad</h1>
+            <p>Dokumentacja Techniczna v1.0</p>
+        </header>
+
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="showTab('dimensions')">Wymiary</button>
+                <button class="tab-button" onclick="showTab('layers')">Warstwy</button>
+                <button class="tab-button" onclick="showTab('components')">Komponenty</button>
+                <button class="tab-button" onclick="showTab('assembly')">Montaż</button>
+            </div>
+
+            <!-- Tab: Wymiary -->
+            <div id="dimensions" class="tab-content active">
+                <div class="technical-drawing">
+                    <div class="drawing-container">
+                        <svg viewBox="0 0 400 300">
+                            <!-- Góra -->
+                            <circle cx="200" cy="150" r="100" fill="none" stroke="black"/>
+                            <line x1="100" y1="150" x2="300" y2="150" class="dimension-line"/>
+                            <text x="200" y="140" class="dimension-text">50mm</text>
+                            
+                            <!-- Wewnętrzne koła -->
+                            <circle cx="200" cy="150" r="90" fill="none" stroke="#666" stroke-dasharray="5,5"/>
+                            <circle cx="200" cy="150" r="75" fill="none" stroke="var(--accent-color)"/>
+                            
+                            <!-- Wysokość -->
+                            <line x1="320" y1="130" x2="320" y2="170" class="dimension-line"/>
+                            <text x="335" y="150" class="dimension-text">8mm</text>
+                        </svg>
+                        
+                        <div class="specifications">
+                            <h3>Specyfikacja wymiarów</h3>
+                            <table class="specs-table">
+                                <tr>
+                                    <th>Parametr</th>
+                                    <th>Wartość</th>
+                                </tr>
+                                <tr>
+                                    <td>Średnica zewnętrzna</td>
+                                    <td>50mm ±0.1mm</td>
+                                </tr>
+                                <tr>
+                                    <td>Wysokość całkowita</td>
+                                    <td>8mm ±0.05mm</td>
+                                </tr>
+                                <tr>
+                                    <td>Średnica aktywna</td>
+                                    <td>45mm ±0.1mm</td>
+                                </tr>
+                                <tr>
+                                    <td>Masa</td>
+                                    <td>35g ±2g</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Warstwy -->
+            <div id="layers" class="tab-content">
+                <div class="technical-drawing">
+                    <div class="drawing-container">
+                        <svg viewBox="0 0 400 300">
+                            <!-- Przekrój warstw -->
+                            <rect x="50" y="50" width="300" height="200" fill="none" stroke="black"/>
+                            <!-- Warstwy -->
+                            <g transform="translate(50,50)">
+                                <rect width="300" height="20" fill="#87CEEB"/>
+                                <rect y="20" width="300" height="30" fill="#cd7f32"/>
+                                <rect y="50" width="300" height="20" fill="gray"/>
+                                <rect y="70" width="300" height="30" fill="#cd7f32"/>
+                                <rect y="100" width="300" height="40" fill="#00ab6b"/>
+                                <rect y="140" width="300" height="60" fill="silver"/>
+                            </g>
+                        </svg>
+
+                        <div class="specifications">
+                            <h3>Specyfikacja warstw</h3>
+                            <div class="layer-info">
+                                <div class="layer-color" style="background: #87CEEB"></div>
+                                <span>Panel dotykowy (0.1mm)</span>
+                            </div>
+                            <div class="layer-info">
+                                <div class="layer-color" style="background: #cd7f32"></div>
+                                <span>Cewki (0.4mm)</span>
+                            </div>
+                            <div class="layer-info">
+                                <div class="layer-color" style="background: gray"></div>
+                                <span>Membrana LCP (0.2mm)</span>
+                            </div>
+                            <div class="layer-info">
+                                <div class="layer-color" style="background: #00ab6b"></div>
+                                <span>PCB (1.6mm)</span>
+                            </div>
+                            <div class="layer-info">
+                                <div class="layer-color" style="background: silver"></div>
+                                <span>Radiator (5.3mm)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Komponenty -->
+            <div id="components" class="tab-content">
+                <div class="technical-drawing">
+                    <h3>Lista komponentów</h3>
+                    <ul class="component-list">
+                        <li>
+                            <strong>MCU: STM32L4R5VIT6</strong>
+                            <p>• Wymiary: 14x14x1.4mm</p>
+                            <p>• Dostawca: Mouser Electronics</p>
+                            <p>• Part number: 511-STM32L4R5VIT6</p>
+                        </li>
+                        <li>
+                            <strong>Kontroler Qi: BQ51013B</strong>
+                            <p>• Wymiary: 4x4x0.9mm</p>
+                            <p>• Dostawca: Texas Instruments</p>
+                            <p>• Part number: BQ51013BRHLR</p>
+                        </li>
+                        <li>
+                            <strong>Audio Codec: TAS2770</strong>
+                            <p>• Wymiary: 4x4x1mm</p>
+                            <p>• Dostawca: Texas Instruments</p>
+                            <p>• Part number: TAS2770YFFR</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tab: Montaż -->
+            <div id="assembly" class="tab-content">
+                <div class="technical-drawing">
+                    <h3>Procedura montażu</h3>
+                    <ol>
+                        <li>Przygotowanie PCB
+                            <ul>
+                                <li>Montaż SMD</li>
+                                <li>Kontrola jakości</li>
+                                <li>Programowanie MCU</li>
+                            </ul>
+                        </li>
+                        <li>Montaż cewek
+                            <ul>
+                                <li>Pozycjonowanie</li>
+                                <li>Lutowanie</li>
+                                <li>Test impedancji</li>
+                            </ul>
+                        </li>
+                        <li>Integracja membrany
+                            <ul>
+                                <li>Klejenie</li>
+                                <li>Centrowanie</li>
+                                <li>Test naprężeń</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Deactivate all buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+            
+            // Activate selected button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
